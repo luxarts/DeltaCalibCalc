@@ -1,0 +1,78 @@
+<style type="text/css">
+	*{
+		font-family: Consolas;
+		margin: 15px;
+	}
+	body{
+		background: black;
+		color: white;
+		text-align: center;
+	}
+	.code{
+		background: #DDD;
+		border: 1px solid #555;
+		padding: 15px;
+		color: black;
+		text-align: left;
+	}
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Generador de Círculos</title>
+</head>
+<body>
+	<h1>Polar a Cartesiano</h1>
+	<span>Módulo: </span><input type="text" id="modulo" onchange="pol2cart();"><br>
+	<span>Puntos: </span><input type="text" id="puntos" onchange="pol2cart();">
+	<p class="code" id="gcode"></p>
+	<h2>Torre X</h2>
+	<p class="code" id="towerx"></p>
+	<h2>Torre X</h2>
+	<p class="code" id="towery"></p>
+	<h2>Torre X</h2>
+	<p class="code" id="towerz"></p>
+
+	<script type="text/javascript">
+		function pol2cart(){
+			var modulo = parseFloat(document.getElementById("modulo").value);
+			var puntos = parseInt(document.getElementById("puntos").value);
+			//console.log(modulo + "\t" + puntos);
+			if(isNaN(modulo) || isNaN(puntos))return;
+			var angulo = 360/puntos;
+			var x=0, y=0;
+			var anguloSuma=0;
+			var gcode = "G1 Z50<br>";
+			//console.log("Mod: "+modulo+" Angulo: "+anguloSuma+" cos("+anguloSuma+"): "+Math.cos(anguloSuma*Math.PI/180));
+			do{
+				x = modulo*Math.cos(anguloSuma*Math.PI/180);
+				y = modulo*Math.sin(anguloSuma*Math.PI/180);
+				x = x.toFixed(2);
+				y = y.toFixed(2);
+				gcode+= "G1 X"+x+" Y"+y+" ;Angulo "+anguloSuma.toFixed(2)+"<br>";
+				anguloSuma+=angulo;
+			}while(anguloSuma<360);
+			x = modulo*Math.cos(0*Math.PI/180);
+			y = modulo*Math.sin(0*Math.PI/180);
+			gcode+= "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" ;Angulo "+anguloSuma.toFixed(2)+"<br>";
+			document.getElementById("gcode").innerHTML = gcode;
+			towers(modulo);
+		}
+		function towers(modulo){
+			//Torre X
+			var x=modulo*Math.cos(210*Math.PI/180);
+			var y=modulo*Math.sin(210*Math.PI/180);
+			document.getElementById("towerx").innerHTML = "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z15<br>G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z10";
+			//Torre Y
+			var x=modulo*Math.cos(330*Math.PI/180);
+			var y=modulo*Math.sin(330*Math.PI/180);
+			document.getElementById("towery").innerHTML = "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z15<br>G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z10";
+			//Torre Z
+			var x=modulo*Math.cos(90*Math.PI/180);
+			var y=modulo*Math.sin(90*Math.PI/180);
+			document.getElementById("towerz").innerHTML = "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z15<br>G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z10";
+		}
+	</script>
+</body>
+</html>
