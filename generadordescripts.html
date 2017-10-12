@@ -8,12 +8,24 @@
 		color: white;
 		text-align: center;
 	}
-	.code{
+	.box{
 		background: #DDD;
 		border: 1px solid #555;
-		padding: 15px;
+		padding: 5px;
+		margin: 0;
 		color: black;
 		text-align: left;
+	}
+	.code{
+		display:inline-block;
+		margin: 10px;
+	}
+	#codes{
+		text-align: center;
+		display: none;
+	}
+	#circulo{
+		display:inline-block;
 	}
 </style>
 <!DOCTYPE html>
@@ -25,24 +37,39 @@
 <body>
 	<h1>Generador de scripts para impresora Delta</h1>
 	<span>Módulo: </span><input type="text" id="modulo" onchange="pol2cart();"><br>
-	<span>Puntos: </span><input type="text" id="puntos" onchange="pol2cart();">
-	<h2>Centro</h2>
-	<p class="code" id="centro"></p>
-	<h2>Torre X</h2>
-	<p class="code" id="towerx"></p>
-	<h2>Torre X</h2>
-	<p class="code" id="towery"></p>
-	<h2>Torre X</h2>
-	<p class="code" id="towerz"></p>
-	<h2>Círculo</h2>
-	<p class="code" id="gcode"></p>
+	<span>Puntos: </span><input type="text" id="puntos" onchange="pol2cart();"><br>
+	<div id="codes">
+		<div class="code">
+			<h2>Centro</h2>
+			<p class="box" id="centro"></p>
+		</div>
+		<div class="code">
+			<h2>Torre X</h2>
+			<p class="box" id="towerx"></p>
+		</div>
+		<div class="code">
+			<h2>Torre Y</h2>
+			<p class="box" id="towery"></p>
+		</div>
+		<div class="code">
+			<h2>Torre Z</h2>
+			<p class="box" id="towerz"></p>
+		</div>
+		<h2>Círculo</h2>
+		<p class="box" id="circulo"></p>
+	</div>
 
 	<script type="text/javascript">
 		function pol2cart(){
 			var modulo = parseFloat(document.getElementById("modulo").value);
 			var puntos = parseInt(document.getElementById("puntos").value);
 			//console.log(modulo + "\t" + puntos);
-			if(isNaN(modulo) || isNaN(puntos))return;
+			if(isNaN(modulo) || isNaN(puntos) || puntos<1 || modulo<1){
+				document.getElementById("codes").style.display = "none";
+				return
+			}
+			document.getElementById("codes").style.display = "inline";
+
 			var angulo = 360/puntos;
 			var x=0, y=0;
 			var anguloSuma=0;
@@ -59,7 +86,7 @@
 			x = modulo*Math.cos(0*Math.PI/180);
 			y = modulo*Math.sin(0*Math.PI/180);
 			gcode+= "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" ;Angulo "+anguloSuma.toFixed(2)+"<br>";
-			document.getElementById("gcode").innerHTML = gcode;
+			document.getElementById("circulo").innerHTML = gcode;
 			towers(modulo);
 		}
 		function towers(modulo){
