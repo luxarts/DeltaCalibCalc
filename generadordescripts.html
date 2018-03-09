@@ -1,3 +1,7 @@
+<!--	Script creado por LuxARTS
+	www.github.com/luxarts
+		2017
+-->
 <style type="text/css">
 	*{
 		font-family: Consolas;
@@ -37,7 +41,7 @@
 <body>
 	<h1>Generador de scripts para impresora Delta</h1>
 	<span>Módulo: </span><input type="text" id="modulo" onchange="pol2cart();"><br>
-	<span>Puntos: </span><input type="text" id="puntos" onchange="pol2cart();"><br>
+	<span>Puntos para el círculo: </span><input type="text" id="puntos" onchange="pol2cart();"><br>
 	<div id="codes">
 		<div class="code">
 			<h2>Centro</h2>
@@ -104,7 +108,7 @@
 			var x=modulo*Math.cos(90*Math.PI/180);
 			var y=modulo*Math.sin(90*Math.PI/180);
 			document.getElementById("towerz").innerHTML = "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z15<br>G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z10";
-		}
+		} 
 	</script>
 </body>
 </html>
