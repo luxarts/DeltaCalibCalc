@@ -1,7 +1,3 @@
-<!--	Script creado por LuxARTS
-	www.github.com/luxarts
-		2017
--->
 <style type="text/css">
 	*{
 		font-family: Consolas;
@@ -19,6 +15,8 @@
 		margin: 0;
 		color: black;
 		text-align: left;
+		resize: none;
+		width: 200px;
 	}
 	.code{
 		display:inline-block;
@@ -30,6 +28,8 @@
 	}
 	#circulo{
 		display:inline-block;
+		width: 300px;
+		height: 100%;
 	}
 </style>
 <!DOCTYPE html>
@@ -45,22 +45,22 @@
 	<div id="codes">
 		<div class="code">
 			<h2>Centro</h2>
-			<p class="box" id="centro"></p>
+			<textarea readonly class="box" id="centro" onclick="copy('centro')"></textarea>
 		</div>
 		<div class="code">
 			<h2>Torre X</h2>
-			<p class="box" id="towerx"></p>
+			<textarea readonly class="box" id="towerx" onclick="copy('towerx')"></textarea>
 		</div>
 		<div class="code">
 			<h2>Torre Y</h2>
-			<p class="box" id="towery"></p>
+			<textarea readonly class="box" id="towery" onclick="copy('towery')"></textarea>
 		</div>
 		<div class="code">
 			<h2>Torre Z</h2>
-			<p class="box" id="towerz"></p>
+			<textarea readonly class="box" id="towerz" onclick="copy('towerz')"></textarea>
 		</div>
 		<h2>Círculo</h2>
-		<p class="box" id="circulo"></p>
+		<textarea readonly class="box" id="circulo" onclick="copy('circulo')"></textarea>
 	</div>
 
 	<script type="text/javascript">
@@ -70,45 +70,49 @@
 			//console.log(modulo + "\t" + puntos);
 			if(isNaN(modulo) || isNaN(puntos) || puntos<1 || modulo<1){
 				document.getElementById("codes").style.display = "none";
-				return
+				return;
 			}
 			document.getElementById("codes").style.display = "inline";
 
 			var angulo = 360/puntos;
 			var x=0, y=0;
 			var anguloSuma=0;
-			var gcode = "G1 Z50<br>";
+			var gcode = "G1 Z50 ;Altura 50mm\n";
 			//console.log("Mod: "+modulo+" Angulo: "+anguloSuma+" cos("+anguloSuma+"): "+Math.cos(anguloSuma*Math.PI/180));
 			do{
 				x = modulo*Math.cos(anguloSuma*Math.PI/180);
 				y = modulo*Math.sin(anguloSuma*Math.PI/180);
 				x = x.toFixed(2);
 				y = y.toFixed(2);
-				gcode+= "G1 X"+x+" Y"+y+" ;Angulo "+anguloSuma.toFixed(2)+"<br>";
+				gcode+= "G1 X"+x+" Y"+y+" ;Angulo "+anguloSuma.toFixed(2)+"\n";
 				anguloSuma+=angulo;
 			}while(anguloSuma<360);
 			x = modulo*Math.cos(0*Math.PI/180);
 			y = modulo*Math.sin(0*Math.PI/180);
-			gcode+= "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" ;Angulo "+anguloSuma.toFixed(2)+"<br>";
+			gcode+= "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" ;Angulo "+anguloSuma.toFixed(2)+"\n";
 			document.getElementById("circulo").innerHTML = gcode;
 			towers(modulo);
 		}
 		function towers(modulo){
 			//Centro
-			document.getElementById("centro").innerHTML = "G1 X0 Y0 Z15<br>G1 X0 Y0 Z10";
+			document.getElementById("centro").innerHTML = "G1 X0 Y0 Z15\nG1 X0 Y0 Z5";
 			//Torre X
 			var x=modulo*Math.cos(210*Math.PI/180);
 			var y=modulo*Math.sin(210*Math.PI/180);
-			document.getElementById("towerx").innerHTML = "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z15<br>G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z10";
+			document.getElementById("towerx").innerHTML = "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z15\nG1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z5";
 			//Torre Y
 			var x=modulo*Math.cos(330*Math.PI/180);
 			var y=modulo*Math.sin(330*Math.PI/180);
-			document.getElementById("towery").innerHTML = "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z15<br>G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z10";
+			document.getElementById("towery").innerHTML = "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z15\nG1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z5";
 			//Torre Z
 			var x=modulo*Math.cos(90*Math.PI/180);
 			var y=modulo*Math.sin(90*Math.PI/180);
-			document.getElementById("towerz").innerHTML = "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z15<br>G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z10";
-		} 
+			document.getElementById("towerz").innerHTML = "G1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z15\nG1 X"+x.toFixed(2)+" Y"+y.toFixed(2)+" Z5";
+		}
+		function copy(box){
+			var gcode = document.getElementById(box).select();
+			document.execCommand("Copy");
+		}
 	</script>
 </body>
 </html>
