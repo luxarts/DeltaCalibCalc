@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<title>Calibracion Delta</title>
+</head>
+<body>
+	<div id="content">
+		<img src="maxwell_logo.png">
+		<h1>Herramienta de calibración</h1>
+		<table>
+			<tr>
+				<td>Tower endstop offset</td>
+				<td>X</td>
+				<td><input type="number" step="1" id="old_xOffset" value="0"> pasos</td>
+				<td>Y</td>
+				<td><input type="number" step="1" id="old_yOffset" value="0"> pasos</td>
+				<td>Z</td>
+				<td><input type="number" step="1" id="old_zOffset" value="0"> pasos</td>
+			</tr>
+			<tr>
+				<td>Pasos por mm:</td>
+				<td></td>
+				<td><input type="number" step="0.1" id="pasosxmm" value="80"></td>
+			</tr>
+			<tr>
+				<td>Diagonal rod length</td>
+				<td></td>
+				<td><input type="number" step="0.1" id="diagonalRodLength"> mm</td>
+			</tr>
+			<tr>
+				<td>Horizontal rod radius at 0,0</td>
+				<td></td>
+				<td><input type="number" step="0.1" id="old_horizontalRodRadius"> mm</td>
+			</tr>
+			<tr>
+				<td>Z max length</td>
+				<td></td>
+				<td><input type="number" step="0.1" id="old_zMaxLength"> mm</td>
+			</tr>
+			<tr>
+				<td>Max printable radius</td>
+				<td></td>
+				<td><input type="number" step="0.1" id="maxPrintableRadius" onchange="generarPuntos()"> mm</td>
+			</tr>	
+		</table>
+			
+		<hr>
+		<!-- <input type="button" id="generarPuntos" value="Generar puntos" onclick="generarPuntos()"> -->
+			
+		<table>
+			<tr>
+				<td>Punto 1</td>
+				<td>X</td>
+				<td><input type="number" step="0.1" id="p4x" readonly value="0.0"> mm</td>
+				<td>Y</td>
+				<td><input type="number" step="0.1" id="p4y" readonly value="0.0"> mm</td>
+				<td>Error en Z</td>
+				<td><input type="number" step="0.1" id="p4z"> mm</td>
+			</tr>
+			<tr>
+				<td>Punto 2</td>
+				<td>X</td>
+				<td><input type="number" step="0.1" id="p3x" readonly value="0.0"> mm</td>
+				<td>Y</td>
+				<td><input type="number" step="0.1" id="p3y" readonly value="0.0"> mm</td>
+				<td>Error en Z</td>
+				<td><input type="number" step="0.1" id="p3z"> mm</td>
+			</tr>
+			<tr>
+				<td>Punto 3</td>
+				<td>X</td>
+				<td><input type="number" step="0.1" id="p2x" readonly value="0.0"> mm</td>
+				<td>Y</td>
+				<td><input type="number" step="0.1" id="p2y" readonly value="0.0"> mm</td>
+				<td>Error en Z</td>
+				<td><input type="number" step="0.1" id="p2z"> mm</td>
+			</tr>
+			<tr>
+				<td>Punto 4</td>
+				<td>X</td>
+				<td><input type="number" step="0.1" id="p1x" readonly value="0.0"> mm</td>
+				<td>Y</td>
+				<td><input type="number" step="0.1" id="p1y" readonly value="0.0"> mm</td>
+				<td>Error en Z</td>
+				<td><input type="number" step="0.1" id="p1z"> mm</td>
+			</tr>
+		</table>
+
+		<input type="button" id="calcular" value="Calcular" onclick="calcular()">
+
+		<table>
+			<tr>
+				<td>Nuevo tower endstop offset</td>
+				<td>X</td>
+				<td><input type="number" step="1" id="xOffset" readonly value="0"> pasos</td>
+				<td>Y</td>
+				<td><input type="number" step="1" id="yOffset" readonly value="0"> pasos</td>
+				<td>Z</td>
+				<td><input type="number" step="1" id="zOffset" readonly value="0"> pasos</td>
+			</tr>
+			<tr>
+				<td>Nuevo horizontal rod radius at 0,0</td>
+				<td></td>
+				<td><input type="number" step="0.1" id="horizontalRodRadius" readonly> mm</td>
+			</tr>
+			<tr>
+				<td>Nuevo Z max length</td>
+				<td></td>
+				<td><input type="number" step="0.1" id="zMaxLength" readonly> mm</td>
+			</tr>
+		</table>
+		<input type="button" id="copiar" value="Copiar a valores iniciales" onclick="copiar()">
+		<p><a onclick="openLink()">LuxARTS</a> - 2018</p>
+	</div>
+
+	<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

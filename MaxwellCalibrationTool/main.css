@@ -1,0 +1,83 @@
+*{
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	background: black;
+	color: white;
+}
+#content{
+	text-align: center;
+	margin: 0 auto;
+	width: 860px;
+}
+table{
+	width: 100%;
+}
+td:first-child{
+	min-width: 240px;
+	text-align: left;
+}
+td:nth-child(2), td:nth-child(4), td:nth-child(6){
+	width: 70px;
+	text-align: right;
+}
+td:nth-child(3), td:nth-child(5), td:nth-child(7){
+	width: 125px;
+	font-size: 12px;
+	text-align: left;
+}
+td ::placeholder{
+	font-size: 12px;
+}
+input[type="number"]{
+	width: 70px;
+	padding: 3px 5px 3px 10px;
+	border-radius: 10px;
+	border: none;
+	outline: none;
+	background: white;
+	color: black;
+	text-align: center;
+	font-size: 16px;
+}
+input[type="button"]{
+	margin: 10px;
+	padding: 5px 15px 5px 15px;
+	width: 80%;
+	border-radius: 10px;
+	background: #9E9E9E; /*Grey 500*/
+	border: none;
+	color: #000;
+	font-weight: bold;
+	outline: none;
+}
+input[type="button"]:hover{
+	background: #FF5722; /*Deep Orange 500*/
+}
+#p1x, #p1y, #p2x, #p2y, #p3x, #p3y, #p4x, #p4y{
+	background: #BDBDBD; /*Grey 400*/
+} 
+hr{
+	border: solid 2px #FF5722; /*Deep Orange 500*/
+	width: 90%;
+}
+img{
+	height: 75px;
+	margin: 0;
+}
+h1{
+	font-size: 12px;
+	font-weight: normal;
+	color: #FF5722;
+	text-decoration: underline;
+	margin: 0 0 5px 0;
+}
+p, a{
+	font-size: 12px;
+	margin-top: 15px;
+}
+a{
+	text-decoration: underline;
+}
+a:hover{
+	color: #FF5722;
+}
